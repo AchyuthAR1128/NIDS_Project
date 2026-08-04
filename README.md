@@ -1,4 +1,4 @@
-# Network Intrusion Detection System using Soft Computing Techniques
+# Network Intrusion Detection System using Machine Learning and Deep Learning Techniques
 
 ## Overview
 
