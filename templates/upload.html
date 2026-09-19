@@ -268,7 +268,7 @@
                     <p style="color: red;">{{ error }}</p>
                 {% endif %}
                 <label for="file">Choose a CSV file:</label>
-                <input type="file" name="file" id="file" accept=".csv" required>
+                <input type="file" name="file" id="file" accept=".csv">
                 <br> 
             </center>
 
@@ -278,6 +278,15 @@
 
                         <br>
                         
+                        <br>
+
+                        <p>OR</p>
+                        <h3>Try a Sample CSV extracted from the dataset:</h3>
+                        <button type="submit" name="sample" value="first" class="btn" style="width: 300px; font-size: 20px;">First 10 Rows</button>
+                        <button type="submit" name="sample" value="middle" class="btn" style="width: 300px; font-size: 20px;">Middle 10 Rows</button>
+                        <button type="submit" name="sample" value="last" class="btn" style="width: 300px; font-size: 20px;">Last 10 Rows</button>
+
+                        <br>
                         <br>
 
                         {% if predictions %}

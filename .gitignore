@@ -1,0 +1,10 @@
+.venv/
+.venv-1/
+.venv311/
+__pycache__/
+*.pyc
+.vscode/
+.pytest_cache/
+.ipynb_checkpoints/
+*.log
+dataset/archive (1).zip

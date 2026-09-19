@@ -1,35 +1,51 @@
 import sqlite3
 import os
 
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATABASE_PATH = os.path.join(BASE_DIR, "database", "db.db")
+
+
 def createDabase():
     global conn, cursor
-    cwd = os.getcwd()
-    database_path = cwd+'\database\db.db'
-    conn = sqlite3.connect(database_path)
-    cursor = conn.cursor()
-    # print('Database Created')
 
-def InsertData(name,email,password,mobile):
-    cwd = os.getcwd()
-    database_path = cwd+'\database\db.db'
-    conn = sqlite3.connect(database_path)
+    conn = sqlite3.connect(DATABASE_PATH)
     cursor = conn.cursor()
-    cursor.execute("INSERT INTO `users` ("
-                   "username,email,password,mobile) "
-                   "VALUES(?, ?, ?, ?)",
-                   (name,email,password,mobile))
+
+
+def InsertData(name, email, password, mobile):
+
+    conn = sqlite3.connect(DATABASE_PATH)
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "INSERT INTO users (username, email, password, mobile) VALUES (?, ?, ?, ?)",
+        (name, email, password, mobile)
+    )
 
     conn.commit()
-    print('Inserted Data')
+    conn.close()
 
-def read_cred(email,password):
-    cwd = os.getcwd()
-    database_path = cwd+'\database\db.db'
-    conn = sqlite3.connect(database_path)
+    print("Inserted Data")
+
+
+def read_cred(email, password):
+
+    conn = sqlite3.connect(DATABASE_PATH)
     cursor = conn.cursor()
-    cursor.execute("SELECT username,email,password,mobile FROM users WHERE email ="+"'"+email+"'"+" and password ="+"'"+password+"'"+"")
+
+    cursor.execute(
+        "SELECT username, email, password, mobile "
+        "FROM users WHERE email = ? AND password = ?",
+        (email, password)
+    )
+
     fetch = cursor.fetchone()
+    conn.close()
+
     print(fetch)
+
     return fetch
+
 
 createDabase()

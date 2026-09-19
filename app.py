@@ -14,7 +14,7 @@ app = Flask(__name__)
 global filename
 filename = ""
 
-app.secret_key = 'super secret key'
+app.secret_key = os.environ.get('SECRET_KEY', 'development-secret-key')
 app.config['SESSION_TYPE'] = 'filesystem'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 def allowed_file(filename):
@@ -94,7 +94,7 @@ import pandas as pd
 import joblib
 
 # Load the model from the file
-model_filename = 'models/StackingEnsemble.joblib'
+model_filename = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'models', 'StackingEnsemble.joblib')
 loaded_model = joblib.load(model_filename)
 
 
@@ -140,6 +140,12 @@ feature_order = [
     ' Total Length of Bwd Packets',
     ' Flow Packets/s'
 ]
+
+SAMPLE_FILES = {
+    'first': 'first_x_10_row_df.csv',
+    'middle': 'middle_x_10_rows.csv',
+    'last': 'last_x_10_rows.csv'
+}
 
 def preprocess_user_input(user_input):
     # Convert input to the appropriate data types
@@ -270,40 +276,42 @@ def predict():
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
-        # Check if the post request has the file part
-        if 'file' not in request.files:
-            return render_template('upload.html', error='No file part')
-
-        file = request.files['file']
-
-        # If the user does not select a file, the browser also
-        # submits an empty file without a filename
-        if file.filename == '':
-            return render_template('upload.html', error='No selected file')
-
         try:
-            # Read the CSV file
-            df = pd.read_csv(file)
+            sample_name = request.form.get('sample')
+            if sample_name:
+                sample_file = SAMPLE_FILES.get(sample_name)
+                if sample_file is None:
+                    return render_template('upload.html', error='Invalid sample CSV selected')
+                sample_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'test data', sample_file)
+                if not os.path.isfile(sample_path):
+                    return render_template('upload.html', error='The selected sample CSV is unavailable')
+                df = pd.read_csv(sample_path)
+            else:
+                if 'file' not in request.files:
+                    return render_template('upload.html', error='No file part')
 
-            # Make predictions using the loaded model
+                file = request.files['file']
+                if file.filename == '':
+                    return render_template('upload.html', error='No selected file')
+                df = pd.read_csv(file)
+
             predictions = loaded_model.predict(df)
-
-            # Get class names for predictions
             class_names = [class_mapping_reverse.get(prediction, 'Unknown') for prediction in predictions]
-
-            # Convert int64 types to native Python integers
             predictions = predictions.astype(np.int64).tolist()
-
-            # Prepare the response with both class index and class name
             response = [{'sr_no': i+1, 'class_index': prediction, 'class_name': class_name} for i, (prediction, class_name) in enumerate(zip(predictions, class_names))]
 
-            # Return the HTML page with predictions
             return render_template('upload.html', predictions=response)
         except Exception as e:
+            if request.form.get('sample'):
+                return render_template('upload.html', error='Unable to process the selected sample CSV')
             return render_template('upload.html', error=str(e))
 
     return render_template('upload.html', error=None)
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(
+        debug=True,
+        host='0.0.0.0',
+        port=int(os.environ.get('PORT', 5000))
+    )
