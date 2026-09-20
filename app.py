@@ -38,9 +38,9 @@ def home():
    return render_template('index.html')
 
 
-@app.route('/aboutus')
-def aboutus():
-   return render_template('aboutus.html')
+@app.route('/aboutme')
+def aboutme():
+   return render_template('aboutme.html')
 
 @app.route('/register',methods = ['POST','GET'])
 def registration():

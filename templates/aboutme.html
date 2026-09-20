@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us</title>
+    <title>About Me</title>
     <link rel="icon" type="favicon" href="static/images/cv_favicon.png">
     <link rel="stylesheet" href="static/css/styles.css">
     <!-- bootstrap  -->
@@ -14,10 +14,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-    <link rel="apple-touch-icon" sizes="180x180" href="static/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="static/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="static/favicon-16x16.png">
-    <link rel="manifest" href="static/site.webmanifest">
     <!-- google fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Lobster+Two&amp;display=swap" rel="stylesheet">
@@ -35,7 +31,37 @@
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 
     <style>
+        /* ABOUT ME page scoped styles — profile card only */
+        .our-webcoderskull .profile-card-link {
+            display: block;
+            color: inherit;
+            text-decoration: none;
+        }
 
+        .our-webcoderskull .profile-card-link:hover,
+        .our-webcoderskull .profile-card-link:focus {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .our-webcoderskull .profile-card-link .cnt-block {
+            cursor: pointer;
+        }
+
+        .our-webcoderskull .cnt-block figure {
+            overflow: hidden;
+        }
+
+        .our-webcoderskull .cnt-block img {
+            object-fit: cover;
+            object-position: center;
+            display: block;
+        }
+
+        .our-webcoderskull .profile-caption {
+            padding: 0 5%;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -65,7 +91,7 @@
             <ul class="navbar-nav ml-auto" > -->
                     <li class="nav-item  ">
 
-                        <a class="nav-link active" href="/aboutus">AboutUs</a>
+                        <a class="nav-link active" href="/aboutme">AboutMe</a>
                     </li>
 
                     <li class="nav-item ">
@@ -120,43 +146,22 @@
         <section class="our-webcoderskull padding-lg">
             <div class="container">
                 <div class="row heading heading-icon">
-                    <h1>About US</h1>
+                    <h1>About Me</h1>
                 </div>
-                <p style="padding: 0 5%;">
-                    We are students of computer science stream. we are working on the project 2023. We contributed our skills our knowledge on this.
-
+                <p class="profile-caption">
+                    Computer Science and Engineering graduate with an interest in software development, data analytics,
+                    machine learning, and building practical technology solutions. This project explores machine learning
+                    and soft computing techniques for detecting and classifying network intrusions.
                 </p>
-                <div class="row heading heading-icon">
-                    <h1>Our Team </h1>
-                </div>
-                <ul class="row">
-                    <li class="col-12 col-md-6 col-lg-4">
-                        <div class="cnt-block equal-hight" style="height: 349px;">
-                            <figure><img src="static/images/female.jpg" class="img-responsive" alt=""></figure>
-                            <h3><a href="http://www.webcoderskull.com/">....</a></h3>
-                            <p>Sahil </p>
-                        </div>
-                    </li>
-                    <li class="col-12 col-md-6 col-lg-4">
-                        <div class="cnt-block equal-hight" style="height: 349px;">
-                            <figure><img src="static/images/female1.jpg" class="img-responsive" alt=""></figure>
-                            <h3><a href="http://www.webcoderskull.com/">...</a></h3>
-                            <p>Sameer</p>
-                        </div>
-                    </li>
-                    
-                </ul>
-
-
-                <ul class="row">
-          
-               
-                    <li class="col-12 col-md-6 col-lg-4">
-                        <div class="cnt-block equal-hight" style="height: 349px;">
-                            <figure><img src="static/images/female.jpg" class="img-responsive" alt=""></figure>
-                            <h3><a href="http://www.webcoderskull.com/"> ...</a></h3>
-                            <p>Student</p>
-                        </div>
+                <ul class="row justify-content-center">
+                    <li class="col-12 col-sm-10 col-md-6 col-lg-4">
+                        <a class="profile-card-link" href="https://github.com/AchyuthAR1128" target="_blank" rel="noopener noreferrer" title="A R Achyuth on GitHub">
+                            <div class="cnt-block equal-hight">
+                                <figure><img src="{{ url_for('static', filename='images/achyuth_profile.jpg') }}" class="img-responsive" alt="A R Achyuth"></figure>
+                                <h3>A R Achyuth</h3>
+                                <p>Computer Science & Engineering<br>Developer</p>
+                            </div>
+                        </a>
                     </li>
                 </ul>
 
@@ -432,8 +437,8 @@
                         <div class="row">
                             <div class="col-12 col-md-6 col-lg-4">
                                 <div class="kilimanjaro_part">
-                                    <h5>About Us</h5>
-                                    <p>We are students of computer engineering stream. we are working on the project 2023. We contributed our skills our knowledge on this.</p>
+                                    <h5>About Me</h5>
+                                    <p>Computer Science and Engineering graduate with an interest in software development, data analytics, machine learning, and building practical technology solutions.</p>
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 col-lg-4" style="margin-left: 30%;">
@@ -487,7 +492,8 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-12">
-                                <p>© All the best</p>
+                                <p>Built with Python, Flask & Machine Learning</p>
+                                <p>© 2026 A R Achyuth | Network Intrusion Detection System</p>
                             </div>
                         </div>
                     </div>
